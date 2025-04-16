@@ -1,0 +1,46 @@
+/* ResultCard.module.css */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px; /* Add margin for spacing between cards */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition for hover */
+    word-wrap: break-word; /* Prevent long text from overflowing */
+    flex: 1 1 300px; /* Flexbox properties: grow, shrink, basis */
+    min-width: 280px; /* Ensure cards don't get too narrow */
+}
+
+/* --- Mouse Hover Interaction --- */
+.card:hover {
+    transform: translateY(-3px); /* Slightly lift the card */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Increase shadow */
+}
+
+.cardTitle {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.2em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.cardContent {
+    color: #555;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+/* Style basic HTML elements that might come from backend */
+.cardContent h2 {
+    font-size: 1.1em;
+    color: #444;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.cardContent b {
+    color: #0056b3; /* Make bold text stand out */
+}
