@@ -1,22 +1,17 @@
+// src/components/ResultCard.tsx
 import React from 'react';
-import styles from './ResultCard.module.css'; // Import the CSS Module
 
 interface ResultCardProps {
     title: string;
-    content: string | null;
+    children: React.ReactNode;
 }
 
-const ResultCard: React.FC<ResultCardProps> = ({ title, content }) => {
+const ResultCard: React.FC<ResultCardProps> = ({title, children}) => {
     return (
-        <div className={styles.card}> {/* Use the 'card' class from CSS Module */}
-            <h3 className={styles.cardTitle}>{title}</h3> {/* Use the 'cardTitle' class */}
-            <div className={styles.cardContent}> {/* Use the 'cardContent' class */}
-                {content ? (
-                    // Render plain text or potentially HTML from backend safely
-                    <div dangerouslySetInnerHTML={{ __html: content }} />
-                ) : (
-                    <p>No data received.</p>
-                )}
+        <div className="resultCard"> {/* <--- 确保这里有 resultCard class */}
+            <h3>{title}</h3>
+            <div className="content">
+                {children}
             </div>
         </div>
     );

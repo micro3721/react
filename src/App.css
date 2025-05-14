@@ -1,71 +1,265 @@
 /* src/App.css */
 
-/* --- Basic Reset / Body Styling --- */
+/* 全局样式和基本重置 */
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #f4f7f9; /* Light background for better contrast with cards */
-  color: #333; /* Default text color */
-  line-height: 1.5; /* Default line height */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f9; /* 淡雅的背景色 */
+    color: #333;
+    -webkit-font-smoothing: antialiased; /* 提升字体渲染效果 (Safari & Chrome) */
+    -moz-osx-font-smoothing: grayscale; /* 提升字体渲染效果 (Firefox) */
 }
 
-/* --- App Container Styling --- */
 .App {
-  max-width: 1200px; /* Limit the maximum width of the content */
-  margin: 30px auto; /* Center the container on the page horizontally, add top/bottom margin */
-  padding: 20px; /* Add some padding inside the container */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    max-width: 1200px; /* 限制最大宽度，居中显示 */
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center; /* 整体内容居中 */
 }
 
-/* --- Main Heading Styling --- */
-.App h1 {
-  text-align: center; /* Center the main title */
-  color: #2c3e50; /* Darker color for the title */
-  margin-bottom: 40px; /* Space below the title */
-  font-weight: 300; /* Lighter font weight for modern look */
+h1, h2, h3 {
+    color: #2c3e50; /* 深色标题 */
+    margin-top: 0; /* 移除默认的上边距，方便控制 */
+    margin-bottom: 0.8em;
 }
 
-/* --- Flexbox Container for Result Cards --- */
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 1em;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-top: 2em; /* 增加与上方内容的间距 */
+    margin-bottom: 1em;
+    border-bottom: 2px solid #e0e0e0; /* 分隔线 */
+    padding-bottom: 0.4em;
+    text-align: left; /* 小标题左对齐 */
+    font-weight: 500;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #dee2e6; /* 更柔和的分隔线颜色 */
+    margin: 40px 0;
+}
+
+/* 结果容器 */
 .resultsContainer {
-  display: flex; /* Enables Flexbox layout */
-  flex-wrap: wrap; /* Allows cards to wrap onto the next line on smaller screens */
-  justify-content: center; /* Centers the cards horizontally within the container */
-  align-items: stretch; /* Stretches items to fill the container height (if needed) */
-  gap: 10px; /* Defines the gap between flex items (cards) - works well with card margins */
-  padding: 0; /* Reset default padding */
-  margin: 0; /* Reset default margin */
-  list-style: none; /* Remove list bullets if it were a list */
+    display: grid; /* 使用 Grid 布局 */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 响应式列 */
+    gap: 25px; /* 卡片之间的间距 */
+    text-align: left; /* 卡片内容左对齐 */
+    margin-top: 20px; /* 与上方标题的间距 */
 }
 
-/* --- Loading and Error Message Styling --- */
+/* ResultCard 组件的样式 */
+.resultCard {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef; /* 更细致的边框 */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* 柔和的阴影 */
+    padding: 20px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex; /* 使用 Flexbox 来更好地控制内部元素 */
+    flex-direction: column; /* 垂直排列标题和内容 */
+}
+
+.resultCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.resultCard h3 {
+    font-size: 1.25em; /* 略微增大卡片标题 */
+    color: #007bff; /* Bootstrap 主题蓝，更鲜明 */
+    margin-bottom: 0.75em; /* 调整标题和内容的间距 */
+    font-weight: 500;
+}
+
+.resultCard .content {
+    font-size: 0.95em;
+    color: #495057; /* 柔和的文本颜色 */
+    word-wrap: break-word;
+    flex-grow: 1; /* 让内容区域占据剩余空间 */
+}
+
+.resultCard .content pre {
+    background-color: #f8f9fa; /* 浅灰色背景 */
+    padding: 12px 15px;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 300px;
+    overflow-y: auto;
+    font-size: 0.9em; /* 调整 pre 内的字体大小 */
+    line-height: 1.5;
+    color: #212529;
+}
+
+/* 交互区域 */
+.interactive-section {
+    background-color: #ffffff;
+    padding: 25px 30px;
+    margin-top: 30px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    text-align: left;
+}
+
+.interactive-section h3 {
+    font-size: 1.5em; /* 交互区域标题 */
+    color: #28a745; /* Bootstrap 成功绿 */
+    margin-bottom: 1em;
+    font-weight: 500;
+}
+
+.interactive-section input[type="text"],
+.interactive-section input[type="number"],
+.interactive-section textarea {
+    width: 100%; /* 使用 100% 宽度，并用 box-sizing 控制 */
+    padding: 10px 12px;
+    margin-bottom: 15px; /* 增加输入框下方间距 */
+    border: 1px solid #ced4da; /* Bootstrap 默认边框颜色 */
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.interactive-section input[type="text"]:focus,
+.interactive-section input[type="number"]:focus,
+.interactive-section textarea:focus {
+    border-color: #80bdff; /* Bootstrap 焦点颜色 */
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.interactive-section textarea {
+    min-height: 70px;
+    resize: vertical;
+}
+
+.interactive-section button {
+    background-color: #007bff; /* Bootstrap 主题蓝 */
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    margin-right: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.interactive-section button:hover {
+    background-color: #0056b3; /* 深一点的蓝色 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.interactive-section button:active {
+    background-color: #004085;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.interactive-section button:disabled {
+    background-color: #6c757d; /* Bootstrap muted 颜色 */
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* 加载和错误消息 */
 .loadingMessage,
 .errorMessage {
-  text-align: center; /* Center the text */
-  font-size: 1.1em; /* Slightly larger font size */
-  padding: 40px 20px; /* Add significant padding for visibility */
-  color: #555; /* Default color for loading */
+    font-size: 1.05em;
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.loadingMessage {
+    color: #004085; /* Bootstrap info text color */
+    background-color: #cce5ff; /* Bootstrap info background */
+    border: 1px solid #b8daff; /* Bootstrap info border */
+    border-left-width: 5px;
 }
 
 .errorMessage {
-  color: #e74c3c; /* Distinctive red color for error messages */
-  font-weight: bold; /* Make error message bold */
+    color: #721c24; /* Bootstrap danger text color */
+    background-color: #f8d7da; /* Bootstrap danger background */
+    border: 1px solid #f5c6cb; /* Bootstrap danger border */
+    border-left-width: 5px;
 }
 
-/* --- Optional: Add some responsiveness --- */
+/* 响应式调整 */
 @media (max-width: 768px) {
-  .App {
-    margin: 15px auto;
-    padding: 15px;
-  }
+    .App {
+        padding: 15px;
+    }
 
-  .App h1 {
-    font-size: 1.8em;
-    margin-bottom: 30px;
-  }
+    h1 {
+        font-size: 2em;
+    }
 
-  /* Cards will naturally wrap due to flex-wrap, no specific change needed here */
+    h2 {
+        font-size: 1.6em;
+    }
+
+    .resultsContainer {
+        grid-template-columns: 1fr; /* 在小屏幕上单列显示 */
+        gap: 20px;
+    }
+
+    .interactive-section {
+        padding: 20px;
+    }
+
+    .interactive-section input[type="text"],
+    .interactive-section input[type="number"],
+    .interactive-section textarea,
+    .interactive-section button {
+        font-size: 0.95em; /* 适当缩小字体 */
+    }
+}
+
+@media (max-width: 480px) {
+    .App {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.4em;
+    }
+
+    .resultCard {
+        padding: 15px;
+    }
+
+    .resultCard h3 {
+        font-size: 1.15em;
+    }
+
+    .interactive-section {
+        padding: 15px;
+    }
+
+    .interactive-section h3 {
+        font-size: 1.3em;
+    }
+
+    .interactive-section button {
+        padding: 8px 18px;
+    }
 }
